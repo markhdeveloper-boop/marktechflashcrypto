@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Homepage -->
+  <url>
+    <loc>https://marktechflashwallet.vercel.app/</loc>
+  </url>
+
+  <!-- About Page -->
+  <url>
+    <loc>https://marktechflashwallet.vercel.app/about</loc>
+  </url>
+
+  <!-- Features Page -->
+  <url>
+    <loc>https://marktechflashwallet.vercel.app/features</loc>
+  </url>
+
+  <!-- Download Page -->
+  <url>
+    <loc>https://marktechflashwallet.vercel.app/download</loc>
+  </url>
+
+  <!-- How It Works Page -->
+  <url>
+    <loc>https://marktechflashwallet.vercel.app/how-it-works</loc>
+  </url>
+
+</urlset>
