@@ -1,0 +1,19 @@
+{
+  "name": "marktechcryptoflash",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "node server.js",
+    "desktop": "electron ."
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^4.18.2",
+    "node-fetch": "^3.3.2",
+    "tronweb": "^6.3.0"
+  },
+  "devDependencies": {
+    "electron": "^28.0.0"
+  }
+}

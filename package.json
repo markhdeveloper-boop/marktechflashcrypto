@@ -1,0 +1,32 @@
+{
+  "name": "marktechcryptoflash",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "cd frontend && npm install && npm run build",
+    "preview": "vite preview",
+    "start": "electron .",
+    "dist": "npm run build && electron-builder"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.3.1",
+    "@capacitor/cli": "^8.3.1",
+    "@capacitor/core": "^8.3.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "nodemailer": "^6.9.1"
+  },
+  "devDependencies": {
+    "electron": "^28.3.3",
+    "electron-builder": "^24.6.3"
+  },
+  "build": {
+    "appId": "com.marktech.flashwallet",
+    "productName": "MarkTech FlashWallet",
+    "directories": {
+      "output": "dist"
+    }
+  }
+}

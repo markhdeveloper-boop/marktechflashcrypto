@@ -1,0 +1,5 @@
+{
+  "appId": "com.marktech.flashwallet",
+  "appName": "MarkTech FlashWallet",
+  "webDir": "frontend/dist"
+}

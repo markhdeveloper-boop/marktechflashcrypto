@@ -1,0 +1,22 @@
+directories:
+  output: dist
+  buildResources: build
+appId: com.marktech.wallet
+productName: MarkTech Wallet
+files:
+  - filter:
+      - main.js
+      - server.js
+      - frontend/dist/**/*
+      - node_modules/**/*
+      - package.json
+win:
+  target: nsis
+  icon: icon.ico
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: MarkTech Wallet
+electronVersion: 28.3.3

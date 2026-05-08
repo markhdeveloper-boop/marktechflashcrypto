@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MarkTech Exchange</title>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+
+  <style>
+    body {
+      font-family: Arial;
+      background: #0f172a;
+      color: white;
+      padding: 20px;
+    }
+
+    .box {
+      background: #1e293b;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+    }
+
+    button {
+      padding: 10px;
+      background: green;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    input, select {
+      padding: 8px;
+      margin: 5px;
+      width: 200px;
+    }
+
+    #qr {
+      margin-top: 10px;
+    }
+
+    .deposit {
+      background: #111827;
+      padding: 10px;
+      border-left: 4px solid lime;
+    }
+
+    .info {
+      line-height: 1.6;
+      font-size: 14px;
+      color: #cbd5e1;
+    }
+  </style>
+</head>
+
+<body>
+
+<h2>🚀 MarkTech Exchange</h2>
+
+<!-- TRUST INFO SECTION -->
+<div class="box">
+  <h3>Trusted And Reliable Crypto Is Here ✅</h3>
+
+  <div class="info">
+    <p>✅ Available Transferable USDT TRC20 / BEP20</p>
+    <p>💱 USDT TRC20 / BEP20 / ERC20 supported assets</p>
+    <p>✅ BTC, ETH, USDC and supported digital assets dashboard</p>
+
+    <p>✅ Transferable 🔥 | Convertible 🔥 | Spendable 🔥 | Swappable 🔥</p>
+
+    <p>Directly received to exchanges such as Trust Wallet, Binance, Bybit and others</p>
+
+    <p>⚡ Demo activation available: <b>$30 TRX</b></p>
+  </div>
+</div>
+
+<!-- DEPOSIT SECTION -->
+<div class="box">
+  <h3>💰 TRX Deposit (Demo Access)</h3>
+
+  <div class="deposit">
+    <p>Send TRX to activate wallet features:</p>
+    <p id="address">Loading...</p>
+  </div>
+
+  <canvas id="qr"></canvas>
+</div>
+
+<!-- BALANCE -->
+<div class="box">
+  <h3>💼 Wallet Balance</h3>
+  <p>BTC: <span id="btc"></span></p>
+  <p>USDT: <span id="usdt"></span></p>
+</div>
+
+<!-- SEND -->
+<div class="box">
+  <h3>📤 Send Crypto</h3>
+
+  <select id="coin">
+    <option>BTC</option>
+    <option>USDT</option>
+    <option>ETH</option>
+    <option>TRX</option>
+  </select>
+
+  <input id="amount" placeholder="Amount">
+  <input id="addressInput" placeholder="Address">
+
+  <button onclick="send()">Send</button>
+</div>
+
+<!-- TRANSACTIONS -->
+<div class="box">
+  <h3>📊 Transactions</h3>
+  <div id="tx"></div>
+</div>
+
+<!-- CONTACT -->
+<div class="box">
+  <h3>📧 Contact Support</h3>
+  <p>Email: <b>mujaedteam@gmail.com</b></p>
+</div>
+
+<script>
+const API = "http://localhost:5000";
+
+/* LOAD BALANCE */
+async function load() {
+  let res = await fetch(`${API}/balance`);
+  let data = await res.json();
+
+  document.getElementById("btc").innerText = data.BTC;
+  document.getElementById("usdt").innerText = data.USDT;
+}
+
+/* LOAD TRANSACTIONS */
+async function loadTx() {
+  let res = await fetch(`${API}/transactions`);
+  let data = await res.json();
+
+  document.getElementById("tx").innerHTML =
+    data.map(t => `<p>${t.coin} - ${t.amount} - ${t.status}</p>`).join("");
+}
+
+/* SEND */
+async function send() {
+  let coin = document.getElementById("coin").value;
+  let amount = document.getElementById("amount").value;
+  let address = document.getElementById("addressInput").value;
+
+  await fetch(`${API}/send`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ coin, amount, address })
+  });
+
+  load();
+  loadTx();
+}
+
+/* LOAD DEPOSIT + QR */
+async function loadDeposit() {
+  let res = await fetch(`${API}/deposit-address`);
+  let data = await res.json();
+
+  document.getElementById("address").innerText = data.address;
+
+  QRCode.toCanvas(
+    document.getElementById("qr"),
+    data.address,
+    function (error) {
+      if (error) console.error(error);
+    }
+  );
+}
+
+/* INIT */
+load();
+loadTx();
+loadDeposit();
+
+/* AUTO REFRESH */
+setInterval(load, 5000);
+setInterval(loadTx, 5000);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">MarkTech FlashWallet</string>
+    <string name="title_activity_main">MarkTech FlashWallet</string>
+    <string name="package_name">com.marktech.wallet</string>
+    <string name="custom_url_scheme">com.marktech.wallet</string>
+</resources>
