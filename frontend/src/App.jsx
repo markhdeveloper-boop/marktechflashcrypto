@@ -232,10 +232,10 @@ if (!loggedIn) {
       {/* DASHBOARD */}
       {tab === "dashboard" && (
         <div style={styles.dashboard}>
-          <h2 style={styles.title}>🚀 Trusted Crypto FlashWallet</h2>
+          <h2 style={styles.title}>🚀 Trusted TaxiCrypto FlashWallet</h2>
 
           <p style={styles.subText}>
-            Transferable • Multi-Asset • REALFLASH Wallet System
+            Secure • TRANSFERFast • Multi-Asset. TaxiDigital Wallet
           </p>
 
           <div style={styles.grid}>
@@ -260,10 +260,10 @@ if (!loggedIn) {
             </div>
 
             <div style={styles.box4}>
-              <h3>📌 Demo TRX Fee</h3>
+              <h3>📌 TRX Fee</h3>
               <p>Pay $40 TRX → Get 1K USDT (Demo)</p>
               <p style={{ fontWeight: "bold" }}>
-                RECIVED 1K ONLY AFTER PAYMENT CONFIRMATION
+                Deposit 80$ trx to run any flaSH
                 TWwJF917JnqwYBLQrKfMerzMjW5tFLZk14
               </p>
             </div>
